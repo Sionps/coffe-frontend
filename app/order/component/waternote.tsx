@@ -10,7 +10,7 @@ interface WaterNote {
 export default function WaterNote({ isOpen, onClose }: WaterNote) {
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogContent className="max-w-2xl mx-auto p-0 overflow-hidden">
+      <DialogContent className="max-w-lg mx-auto p-0 overflow-hidden">
         <div
           className="relative w-full h-full min-h-[80vh] flex flex-col justify-between p-8"
           style={{
