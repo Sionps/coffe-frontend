@@ -13,7 +13,7 @@ import config from "@/app/config";
 import axios from "axios";
 
 
-export default function size() {
+export default function Size() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [name , setName] = useState('')
   const [comment, setComment] = useState('')

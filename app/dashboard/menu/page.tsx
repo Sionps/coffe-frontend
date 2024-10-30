@@ -246,8 +246,8 @@ export default function SizeComponent() {
                                     </TableRow>
                                 </TableHeader>
                                 <TableBody>
-                                    {menu.map((item: any) => (
-                                        <TableRow>
+                                    {menu.map((item: any , index) => (
+                                        <TableRow key={item.id}>
                                             <TableCell className="hidden sm:table-cell" id={item.id}>
                                                 <img
                                                     alt={item.name}
