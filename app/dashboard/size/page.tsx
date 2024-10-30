@@ -1,10 +1,9 @@
 'use client';
-import Image from "next/image";
 import { useEffect, useState } from "react";
-import { PlusCircle, MoreHorizontal, FireExtinguisher } from "lucide-react";
+import { PlusCircle, MoreHorizontal} from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
+import { Card, CardContent, CardDescription, CardHeader} from "@/components/ui/card";
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import MyModal from "../component/MyModal"
 import { Input } from "@/components/ui/input"

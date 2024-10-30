@@ -1,5 +1,4 @@
 'use client';
-import Image from "next/image";
 import { useEffect, useState } from "react";
 import { PlusCircle, MoreHorizontal } from "lucide-react";
 import { Button } from "@/components/ui/button";

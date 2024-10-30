@@ -9,7 +9,7 @@ import dayjs from 'dayjs'
 import { useRouter } from 'next/navigation'
 import axios from 'axios'
 import config from '../config'
-import { ToastContainer, toast } from 'react-toastify';
+import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Swal from "sweetalert2";
 
