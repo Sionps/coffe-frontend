@@ -16,7 +16,6 @@ import Swal from "sweetalert2";
 export default function Dashboard() {
   const [orders, setOrders] = useState([])
   const [totalRevenue, setTotalRevenue] = useState(0)
-  const [topSellingItems, setTopSellingItems] = useState<{name: string, quantity: number}[]>([])
   const router = useRouter()
 
   useEffect(() => {
@@ -95,12 +94,6 @@ export default function Dashboard() {
             </CardHeader>
             <CardContent>
               <ul>
-                {topSellingItems.map((item, index) => (
-                  <li key={index} className="flex justify-between items-center mb-2">
-                    <span>{item.name}</span>
-                    <span className="font-semibold">{item.quantity} sold</span>
-                  </li>
-                ))}
               </ul>
             </CardContent>
           </Card>

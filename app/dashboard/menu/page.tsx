@@ -1,5 +1,4 @@
 'use client';
-import Image from "next/image";
 import { useEffect, useState } from "react";
 import { PlusCircle, MoreHorizontal } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -13,7 +12,6 @@ import Swal from "sweetalert2";
 import config from "@/app/config";
 import axios from "axios";
 
-// Interfaces สำหรับข้อมูลแต่ละประเภท
 interface MenuItem {
     id: number;
     name: string;

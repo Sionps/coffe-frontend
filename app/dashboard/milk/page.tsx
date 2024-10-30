@@ -13,13 +13,13 @@ import config from "@/app/config";
 import axios from "axios";
 
 
-export default function milk() {
+export default function Milk() {
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [name , setName] = useState('')
+  const [name, setName] = useState('')
   const [comment, setComment] = useState('')
-  const [price , setPrice] = useState(0)
+  const [price, setPrice] = useState(0)
   const [id, setId] = useState(0)
-  const [milk, setMilk] = useState([]) 
+  const [milk, setMilk] = useState([])
 
   useEffect(() => {
     fetchData()
@@ -47,7 +47,7 @@ export default function milk() {
       }
 
       if (id == 0) {
-        await axios.post(config.apiServer + '/api/milk/create', payload)  
+        await axios.post(config.apiServer + '/api/milk/create', payload)
       } else {
         await axios.put(config.apiServer + '/api/milk/update', payload)
         setId(0)
@@ -55,7 +55,7 @@ export default function milk() {
 
       fetchData()
       setIsModalOpen(false)
-    } catch (e : any) {
+    } catch (e: any) {
       Swal.fire({
         title: "Error",
         text: e.message,
@@ -64,20 +64,20 @@ export default function milk() {
     }
   }
 
-  const remove = async (item : any) => {
+  const remove = async (item: any) => {
     try {
       const button = await Swal.fire({
-          title: "ต้องการลบข้อมูลใช่หรือไม่",
-          text: "คุณต้องการลบข้อมูลใช่หรือไม่",
-          icon : "question",
-          showCancelButton : true,
-          showConfirmButton : true
+        title: "ต้องการลบข้อมูลใช่หรือไม่",
+        text: "คุณต้องการลบข้อมูลใช่หรือไม่",
+        icon: "question",
+        showCancelButton: true,
+        showConfirmButton: true
       })
-      if(button.isConfirmed){
+      if (button.isConfirmed) {
         await axios.delete(config.apiServer + '/api/milk/remove/' + item.id)
       }
       fetchData()
-    } catch (e : any) {
+    } catch (e: any) {
       Swal.fire({
         title: "Error",
         text: e.message,
@@ -86,7 +86,7 @@ export default function milk() {
     }
   }
 
-  const update = (item : any) => {
+  const update = (item: any) => {
     setId(item.id)
     setName(item.name)
     setComment(item.comment)
@@ -108,7 +108,7 @@ export default function milk() {
         <div className="flex justify-between items-center">
           <h1 className="text-3xl font-bold tracking-tight">Milk Type</h1>
           <Button
-            onClick={() => {setIsModalOpen(true); clear()}}
+            onClick={() => { setIsModalOpen(true); clear() }}
           >
             <PlusCircle className="mr-2 h-4 w-4" />
             เพิ่มชนิดนม
@@ -132,27 +132,27 @@ export default function milk() {
                   </TableRow>
                 </TableHeader>
                 <TableBody>
-                  {milk.map((item : any) => (
-                  <TableRow>
-                    <TableCell className="font-medium">{item.name}</TableCell>
-                    <TableCell>{item.comment}</TableCell>
-                    <TableCell>{item.price}</TableCell>
-                    <TableCell className="text-right">
-                      <DropdownMenu>
-                        <DropdownMenuTrigger asChild>
-                          <Button variant="ghost" className="h-8 w-8 p-0">
-                            <span className="sr-only">Open menu</span>
-                          <MoreHorizontal className="h-4 w-4" />
-                          </Button>
-                        </DropdownMenuTrigger>
-                        <DropdownMenuContent align="end">
-                          <DropdownMenuItem onClick={() => update(item)}>Edit</DropdownMenuItem>
-                          <DropdownMenuItem onClick={() => remove(item)}>Delete</DropdownMenuItem>
-                        </DropdownMenuContent>
-                      </DropdownMenu>
-                    </TableCell>
-                  </TableRow>
-                    ))}
+                  {milk.map((item: any, index) => (
+                    <TableRow key={item.id || index}> {/* ใช้ item.id เป็น key ถ้ามี หรือใช้ index เป็นสำรอง */}
+                      <TableCell className="font-medium">{item.name}</TableCell>
+                      <TableCell>{item.comment}</TableCell>
+                      <TableCell>{item.price}</TableCell>
+                      <TableCell className="text-right">
+                        <DropdownMenu>
+                          <DropdownMenuTrigger asChild>
+                            <Button variant="ghost" className="h-8 w-8 p-0">
+                              <span className="sr-only">Open menu</span>
+                              <MoreHorizontal className="h-4 w-4" />
+                            </Button>
+                          </DropdownMenuTrigger>
+                          <DropdownMenuContent align="end">
+                            <DropdownMenuItem onClick={() => update(item)}>Edit</DropdownMenuItem>
+                            <DropdownMenuItem onClick={() => remove(item)}>Delete</DropdownMenuItem>
+                          </DropdownMenuContent>
+                        </DropdownMenu>
+                      </TableCell>
+                    </TableRow>
+                  ))}
                 </TableBody>
               </Table>
             </CardContent>
@@ -182,9 +182,9 @@ export default function milk() {
               ราคา
             </Label>
             <Input
-              type="number" 
-              className="col-span-3" 
-              value={price} 
+              type="number"
+              className="col-span-3"
+              value={price}
               onChange={(e) => setPrice(Number(e.target.value))}
             />
           </div>
@@ -193,8 +193,8 @@ export default function milk() {
               หมายเหตุ
             </Label>
             <Input
-              className="col-span-3" 
-              value={comment} 
+              className="col-span-3"
+              value={comment}
               onChange={(e) => setComment(e.target.value)}
             />
           </div>
