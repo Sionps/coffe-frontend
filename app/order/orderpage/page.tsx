@@ -304,7 +304,7 @@ export default function OrderPage() {
                     setQuantity(1);
                     setSelectedOptions({ variant: '', size: '', sugar: '', milkType: '', beanType: '', roastMethod: '' });
                   }}>
-                  <img src={config.apiServer + '/uploads/' + item.img} alt={item.name} className="w-full aspect-square object-cover" />
+                  <img src={config.apiServer + 'uploads/' + item.img} alt={item.name} className="w-full aspect-square object-cover" />
                   <CardContent className="flex-grow p-3 bg-white font-['Charm']">
                     <h3 className="font-semibold text-sm text-[#4a3728]">{item.name}</h3>
                     <p className="text-xs text-[#7d6354]">{item.comment}</p>
