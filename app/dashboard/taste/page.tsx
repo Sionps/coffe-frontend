@@ -127,8 +127,8 @@ export default function Taste() {
                   </TableRow>
                 </TableHeader>
                 <TableBody>
-                  {taste.map((items : any , index) => (
-                    <TableRow key={items.id || index}>
+                  {taste.map((items : any  ) => (
+                    <TableRow key={items.id }>
                       <TableCell className="font-medium">{items.level}</TableCell>
                       <TableCell>{items.comment}</TableCell>
                       <TableCell className="text-right">

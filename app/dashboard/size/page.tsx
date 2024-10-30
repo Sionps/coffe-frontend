@@ -133,7 +133,7 @@ export default function Size() {
                 </TableHeader>
                 <TableBody>
                   {size.map((item : any) => (
-                  <TableRow>
+                  <TableRow key={item.id}>
                     <TableCell className="font-medium">{item.name}</TableCell>
                     <TableCell>{item.comment}</TableCell>
                     <TableCell>{item.price}</TableCell>
