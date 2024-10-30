@@ -10,7 +10,7 @@ interface WelcomeDialogProps {
 export default function WelcomeDialog({ isOpen, onClose }: WelcomeDialogProps) {
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogContent className="max-w-sm mx-auto p-0 overflow-hidden">
+      <DialogContent className="max-w-2xl mx-auto p-0 overflow-hidden">
         <div 
           className="relative w-full h-full min-h-[80vh] flex flex-col justify-between p-8"
           style={{
@@ -43,13 +43,10 @@ export default function WelcomeDialog({ isOpen, onClose }: WelcomeDialogProps) {
                 <p>
                 &quot;ที่นี่คือขุมทรัพย์แห่งความรู้เกี่ยวกับกาแฟ ตั้งแต่ประวัติศาสตร์อันยาวนานของเมล็ดกาแฟ วิธีการปลูกและเก็บเกี่ยว ไปจนถึงศิลปะการคั่วและชงที่ละเอียดอ่อน คุณจะได้พบกับตำราโบราณที่บอกเล่าเรื่องราวของกาแฟจากยุคแรกเริ่ม และบันทึกการเดินทางของเมล็ดกาแฟจากถิ่นกำเนิดสู่ทั่วทุกมุมโลก&quot;
                 </p>
-                <p>
-                &quot;นอกจากนี้ ยังมีหนังสือที่รวบรวมสูตรลับและเทคนิคการชงกาแฟจากบาริสต้าชื่อดังทั่วโลก ตลอดจนแผนที่โบราณที่บ่งบอกถึงเส้นทางการค้ากาแฟในอดีต และภาพวาดละเอียดของเครื่องชงกาแฟโบราณหายากที่เคยใช้ในยุคต่างๆ&quot;
-                </p>
               </div>
 
               <p className="text-lg leading-relaxed mt-4 italic">
-                เมื่อคุณอ่านจบ คุณรู้สึกตื่นเต้นกับความรู้มากมายที่รออยู่เบื้องหน้า และอดใจรอไม่ไหวที่จะเริ่มต้นการผจญภัยในโลกแห่งกาแฟที่น่าหลงใหล คุณวางกระดาษลงอย่างเบามือ และเริ่มสำรวจชั้นหนังสือที่เต็มไปด้วยความรู้รอบตัว
+                เมื่อคุณอ่านจบ คุณรู้สึกตื่นเต้นกับความรู้มากมายที่รออยู่เบื้องหน้า และอดใจรอไม่ไหวที่จะเริ่มต้นการผจญภัยในโลกแห่งกาแฟที่น่าหลงใหล
               </p>
             </div>
           </ScrollArea>
@@ -63,7 +60,7 @@ export default function WelcomeDialog({ isOpen, onClose }: WelcomeDialogProps) {
                 fontFamily: 'Charm, sans-serif',
               }}
             >
-              คลิกที่นี่เพื่อเริ่มการผจญภัยของคุณ
+              วางกระดาษลง
             </span>
           </div>
 
