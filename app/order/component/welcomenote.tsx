@@ -10,7 +10,7 @@ interface WelcomeDialogProps {
 export default function WelcomeDialog({ isOpen, onClose }: WelcomeDialogProps) {
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogContent className="max-w-lg mx-auto p-0 overflow-hidden">
+      <DialogContent className="max-w-sm mx-auto p-0 overflow-hidden">
         <div 
           className="relative w-full h-full min-h-[80vh] flex flex-col justify-between p-8"
           style={{

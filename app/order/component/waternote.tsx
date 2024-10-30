@@ -10,7 +10,7 @@ interface WaterNote {
 export default function WaterNote({ isOpen, onClose }: WaterNote) {
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogContent className="max-w-lg mx-auto p-0 overflow-hidden">
+      <DialogContent className="max-w-sm mx-auto p-0 overflow-hidden">
         <div
           className="relative w-full h-full min-h-[80vh] flex flex-col justify-between p-8"
           style={{
@@ -25,7 +25,7 @@ export default function WaterNote({ isOpen, onClose }: WaterNote) {
             @import url('https://fonts.googleapis.com/css2?family=Sarabun:wght@400;700&display=swap');
           `}</style>
 
-          <ScrollArea className="flex-grow pr-4">
+          <ScrollArea className="flex-grow pr-8">
             <div className="space-y-6 text-gray-800 z-10">
               <p className="text-lg leading-relaxed font-['Sarabun']">
                 ขณะที่คุณกำลังเพลิดเพลินกับการสำรวจชั้นหนังสือในหอสมุดอันกว้างใหญ่ จู่ๆ เหตุการณ์ประหลาดก็เกิดขึ้น มีหนังสือเล่มหนึ่งลอยขึ้นมาจากกองหนังสือมากมายรอบตัว แสงประกายสีดำวูบวาบเปล่งออกมาจากตัวเล่ม พร้อมกับสายน้ำสีดำที่พริ้วไหวราวกับริบบิ้นในอากาศ ลอยวนออกมาจากทุกซอกทุกมุมของห้องสมุด มารวมตัวกันเป็นวงล้อมรอบหนังสือเล่มนั้น
