@@ -19,9 +19,17 @@ import { Textarea } from "@/components/ui/textarea"
 import WelcomeDialog from "../component/welcomenote";
 import WaterNote from "../component/waternote";
 import { Suspense } from "react";
-import { useSearchParams } from 'next/navigation';
 
 export default function OrderPage() {
+  return (
+   <>
+    <Suspense fallback={<div>Loading...</div>}>
+      <OrderPageContent />
+    </Suspense>
+   </> 
+  )
+}
+ function OrderPageContent() {
   const searchParams = useSearchParams();
   const router = useRouter();
   const tableId = searchParams.get('tableId');
@@ -269,7 +277,6 @@ export default function OrderPage() {
 
   return (
     <>
-      <Suspense fallback={<div>Loading...</div>}></Suspense>
       <ToastContainer />
 
       {activeTab === "home" && (
@@ -907,7 +914,6 @@ export default function OrderPage() {
           </TabsTrigger>
         </TabsList>
       </Tabs>
-    </Suspense >
     </>
 
   );
