@@ -60,7 +60,6 @@ export default function SizeComponent() {
     const [temperatures, setTemperatures] = useState<Temperature[]>([]);
     const [sizes, setSizes] = useState<Size[]>([]);
 
-    // State สำหรับตัวเลือกที่ถูกเลือกไว้
     const [selectSizes, setSelectSizes] = useState<number[]>([]);
     const [selectMilkTypes, setSelectMilkTypes] = useState<number[]>([]);
     const [selectTastes, setSelectTastes] = useState<number[]>([]);
