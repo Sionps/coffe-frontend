@@ -9,7 +9,8 @@ import {
   CupSoda,
   Coffee,
   RockingChair,
-  CalendarDays 
+  CalendarDays,
+  ChartColumnStacked 
 } from "lucide-react";
 import { Tooltip, TooltipContent, TooltipTrigger, TooltipProvider } from "@/components/ui/tooltip";
 import Link from "next/link";
@@ -58,6 +59,7 @@ export default function Sidebar() {
         </div>
 
         <nav className="flex flex-col items-start gap-4 w-full px-4">
+          
           <Tooltip>
             <TooltipTrigger asChild>
               <Link
@@ -69,6 +71,19 @@ export default function Sidebar() {
               </Link>
             </TooltipTrigger>
             <TooltipContent side="right">Dashboard</TooltipContent>
+          </Tooltip>
+
+          <Tooltip>
+            <TooltipTrigger asChild>
+              <Link
+                href="/dashboard/revenue"
+                className="flex h-12 w-full items-center justify-start rounded-lg text-gray-400 transition-colors hover:text-white hover:bg-gray-700"
+              >
+                <ChartColumnStacked className="h-6 w-6 ml-2" />
+                <span className="ml-4">Revenue</span>
+              </Link>
+            </TooltipTrigger>
+            <TooltipContent side="right">Revenue</TooltipContent>
           </Tooltip>
 
           <Tooltip>
@@ -137,14 +152,26 @@ export default function Sidebar() {
           <Tooltip>
             <TooltipTrigger asChild>
               <Link
-                href="/dashboard/revenue"
+                href="/dashboard/Sum-per-day"
                 className="flex h-12 w-full items-center justify-start rounded-lg text-gray-400 transition-colors hover:text-white hover:bg-gray-700"
               >
                 <CalendarDays  className="h-6 w-6 ml-2" />
-                <span className="ml-4">Revenue</span>
+                <span className="ml-4">Sum-per-day</span>
               </Link>
             </TooltipTrigger>
-            <TooltipContent side="right">Revenue</TooltipContent>
+            <TooltipContent side="right">Sum-per-day</TooltipContent>
+          </Tooltip>
+          <Tooltip>
+            <TooltipTrigger asChild>
+              <Link
+                href="/dashboard/Sum-per-month"
+                className="flex h-12 w-full items-center justify-start rounded-lg text-gray-400 transition-colors hover:text-white hover:bg-gray-700"
+              >
+                <CalendarDays  className="h-6 w-6 ml-2" />
+                <span className="ml-4">Sum-per-month</span>
+              </Link>
+            </TooltipTrigger>
+            <TooltipContent side="right">Sum-per-month</TooltipContent>
           </Tooltip>
         </nav>
 

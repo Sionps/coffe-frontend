@@ -489,7 +489,7 @@ export default function OrderPage() {
             </CardContent>
             <Separator className="my-4" />
             <CardFooter className="flex justify-between items-center">
-              <span className="text-lg font-[Cheam] text-[#4a3728]">ยอดรวมแห่งทองคำ</span>
+              <span className="text-lg font-[Charm] text-[#4a3728]">ยอดรวมแห่งทองคำ</span>
               <span className="text-lg font-[Charm] text-[#4a3728]">฿{total}</span>
             </CardFooter>
           </Card>

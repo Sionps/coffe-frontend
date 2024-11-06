@@ -1,83 +1,87 @@
-"use client"
+'use client';
 
-import React, { useState, useEffect } from 'react'
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
-import { Button } from "@/components/ui/button"
-import { ArrowUpCircle, Trash2 } from "lucide-react"
-import dayjs from 'dayjs'
-import { useRouter } from 'next/navigation'
-import axios from 'axios'
-import config from '../config'
+import React, { useState, useEffect } from 'react';
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
+import { Button } from "@/components/ui/button";
+import { ArrowUpCircle, Trash2 } from "lucide-react";
+import dayjs from 'dayjs';
+import { useRouter } from 'next/navigation';
+import axios from 'axios';
+import config from '../config';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Swal from "sweetalert2";
+import Modal from '../dashboard/component/MyModal'; 
 
 export default function Dashboard() {
-  const [orders, setOrders] = useState([])
-  const [totalRevenue, setTotalRevenue] = useState(0)
-  const router = useRouter()
+  const [orders, setOrders] = useState([]);
+  const [totalRevenue, setTotalRevenue] = useState(0);
+  const [billUrl, setBillUrl] = useState("");
+  const [isModalOpen, setIsModalOpen] = useState(false); 
+  const router = useRouter();
 
   useEffect(() => {
-    const token = localStorage.getItem('token')
+    const token = localStorage.getItem('token');
 
     if (!token) {
-      router.push('/signup')
+      router.push('/signup');
     }
 
-    fetchData()
-  }, [router])
+    fetchData();
+  }, [router]);
 
   const handleSubmit = async (orderId: number) => {
     try {
-      await axios.put(`${config.apiServer}/api/order/submit/${orderId}`)
-      toast.success("Update order success")
-      fetchData()
+      const res = await axios.put(`${config.apiServer}/api/order/submit/${orderId}`);;
+      setBillUrl(res.data.fileName);
+      setIsModalOpen(true); 
+      toast.success("Update order success");
+      fetchData();
     } catch (e: any) {
       Swal.fire({
         icon: 'error',
         title: 'Oops...',
         text: e.response?.data?.message || "Something went wrong!"
-      })
+      });
     }
-  }
-  
+  };
 
-  const handleDelete = async(orderId: number) => {
+  const handleDelete = async (orderId: number) => {
     try {
-      await axios.delete(`${config.apiServer}/api/order/remove/${orderId}`)
-      toast.success("Delete order success")
-      fetchData()
-    } catch (e : any) {
+      await axios.delete(`${config.apiServer}/api/order/remove/${orderId}`);
+      toast.success("Delete order success");
+      fetchData();
+    } catch (e: any) {
       Swal.fire({
         icon: 'error',
         title: 'Oops...',
         text: e.response.data.message
-      })
+      });
     }
-  }
+  };
 
   const fetchData = async () => {
     try {
-      const res = await axios.get(config.apiServer + '/api/order/list')
-      setOrders(res.data.results)
+      const res = await axios.get(config.apiServer + '/api/order/list');
+      setOrders(res.data.results);
 
-      const resRevenue = await axios.get(config.apiServer + '/api/order/getRevenue')
-      setTotalRevenue(resRevenue.data.totalRevenue)
-    } catch (e : any) {
+      const resRevenue = await axios.get(config.apiServer + '/api/order/getRevenue');
+      setTotalRevenue(resRevenue.data.totalRevenue);
+    } catch (e: any) {
       Swal.fire({
         icon: 'error',
         title: 'Oops...',
         text: e.response.data.message
-      })
+      });
     }
-  }
+  };
 
   return (
-    <div className="min-h-screen p-4 pl-64"> {/* Added left padding */}
+    <div className="min-h-screen p-4 pl-64">
       <div className="max-w-[1600px] mx-auto space-y-6">
         <h1 className="text-3xl font-bold text-center mb-6">Dashboard</h1>
-        
+
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           <Card>
             <CardHeader>
@@ -87,18 +91,17 @@ export default function Dashboard() {
               <p className="text-3xl font-bold">฿{totalRevenue}</p>
             </CardContent>
           </Card>
-          
+
           <Card>
             <CardHeader>
               <CardTitle>Top Selling Items</CardTitle>
             </CardHeader>
             <CardContent>
-              <ul>
-              </ul>
+              <ul></ul>
             </CardContent>
           </Card>
         </div>
-        
+
         <Card>
           <CardHeader>
             <CardTitle>Recent Orders</CardTitle>
@@ -121,7 +124,7 @@ export default function Dashboard() {
                   </TableRow>
                 </TableHeader>
                 <TableBody>
-                  {orders.map((order: any) => (
+                  {orders.map((order: any) =>
                     order.items.map((item: any, index: number) => (
                       <TableRow key={`${order.id}-${index}`}>
                         {index === 0 && (
@@ -137,25 +140,35 @@ export default function Dashboard() {
                           </TableCell>
                         )}
                         <TableCell>
-                          {[item.size ? `Size: ${item.size.name}` : null,
-                          item.milk ? `Milk: ${item.milk.name}` : null,
-                          item.taste ? `Taste: ${item.taste.level}` : null,
-                          item.temperature ? `Temp: ${item.temperature.temperature}` : null,
-                          item.beanType ? `Bean Type: ${item.beanType}` : null,
-                          item.roastMethod ? `Roast Method: ${item.roastMethod}` : null
+                          {[
+                            item.size ? `Size: ${item.size.name}` : null,
+                            item.milk ? `Milk: ${item.milk.name}` : null,
+                            item.taste ? `Taste: ${item.taste.level}` : null,
+                            item.temperature ? `Temp: ${item.temperature.temperature}` : null,
+                            item.beanType ? `Bean Type: ${item.beanType}` : null,
+                            item.roastMethod ? `Roast Method: ${item.roastMethod}` : null,
                           ]
-                            .filter(Boolean).join(", ")}
+                            .filter(Boolean)
+                            .join(", ")}
                         </TableCell>
                         <TableCell>{item.comment}</TableCell>
                         {index === 0 && (
                           <TableCell rowSpan={order.items.length}>
-                            <span className={`text-xs font-medium px-2.5 py-0.5 rounded ${order.status === "success" ? "bg-green-100 text-green-800" : "bg-yellow-100 text-yellow-800"}`}>
+                            <span
+                              className={`text-xs font-medium px-2.5 py-0.5 rounded ${
+                                order.status === "success"
+                                  ? "bg-green-100 text-green-800"
+                                  : "bg-yellow-100 text-yellow-800"
+                              }`}
+                            >
                               {order.status}
                             </span>
                           </TableCell>
                         )}
                         <TableCell>{item.quantity}</TableCell>
-                        {index === 0 && <TableCell rowSpan={order.items.length}>฿{order.totalPrice}</TableCell>}
+                        {index === 0 && (
+                          <TableCell rowSpan={order.items.length}>฿{order.totalPrice}</TableCell>
+                        )}
                         {index === 0 && (
                           <TableCell className="text-center" rowSpan={order.items.length}>
                             <div className="flex justify-center space-x-2">
@@ -182,13 +195,22 @@ export default function Dashboard() {
                         )}
                       </TableRow>
                     ))
-                  ))}
+                  )}
                 </TableBody>
               </Table>
             </div>
           </CardContent>
         </Card>
+
+        <Modal isOpen={isModalOpen} setIsOpen={setIsModalOpen} title="พิมพ์เอกสาร">
+        {billUrl && <embed
+            src={config.apiServer + '/' + billUrl}
+            type="application/pdf"
+            width="100%"
+            height="600px"
+          />}
+        </Modal>
       </div>
     </div>
-  )
+  );
 }
