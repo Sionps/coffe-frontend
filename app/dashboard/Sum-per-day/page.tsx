@@ -14,6 +14,7 @@ import { Search } from "lucide-react"
 
 export default function ReportSumSalePerDay() {
     const [arrYear, setArrYear] = useState<number[]>([])
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const [arrMonth, setArrMonth] = useState(['มกราคม', 'กุมภาพันธ์', 'มีนาคม', 'เมษายน', 'พฤษภาคม', 'มิถุนายน', 'กรกฎาคม', 'สิงหาคม', 'กันยายน', 'ตุลาคม', 'พฤศจิกายน', 'ธันวาคม']);
     const [selectedYear, setSelectedYear] = useState(new Date().getFullYear().toString());
     const [selectedMonth, setSelectedMonth] = useState((new Date().getMonth() + 1).toString());
