@@ -7,13 +7,18 @@ import Swal from 'sweetalert2';
 import axios from 'axios';
 import config from '@/app/config';
 
+
 export default function Dashboard() {
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const [incomePerDays, setIncomePerDays] = useState<any[]>([]);
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const [incomePerMonths, setIncomePerMonths] = useState<any[]>([]);
     const [years, setYears] = useState<number[]>([]);
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const [monthName, setMonthName] = useState<string[]>([
         'มกราคม', 'กุมภาพันธ์', 'มีนาคม', 'เมษายน', 'พฤษภาคม', 'มิถุนายน', 'กรกฎาคม', 'สิงหาคม', 'กันยายน', 'ตุลาคม', 'พฤศจิกายน', 'ธันวาคม'
     ]);
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const [days, setDays] = useState<number[]>([]);
     const [selectedYear, setSelectedYear] = useState<number>(dayjs().year());
     const [month, setMonth] = useState<number>(dayjs().month() + 1);
@@ -35,8 +40,8 @@ export default function Dashboard() {
     }
 
     const createBarChartDays = (incomePerDays: any[]) => {
-        let labels: number[] = [];
-        let datas: number[] = [];
+      const labels: number[] = [];
+      const datas: number[] = [];
 
         for (let i = 0; i < incomePerDays.length; i++) {
             const item = incomePerDays[i];
@@ -92,7 +97,7 @@ export default function Dashboard() {
     }
 
     const createBarChartMonths = (incomePerMonths: any[]) => {
-        let datas: number[] = [];
+        const datas: number[] = [];
 
         for (let i = 0; i < incomePerMonths.length; i++) {
             datas.push(incomePerMonths[i].amount);
