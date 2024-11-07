@@ -101,58 +101,65 @@ export default function Taste() {
   return (
     <>
       <div className="p-6 space-y-6 w-full max-w-[1400px] mx-auto">
-        <div className="flex justify-between items-center">
-          <h1 className="text-3xl font-bold tracking-tight">Taste</h1>
-          <Button
-            onClick={() => {setIsModalOpen(true); clear()}} 
-          >
-            <PlusCircle className="mr-2 h-4 w-4" />
-            เพิ่มรสชาติ
-          </Button>
-        </div>
-        <div className="flex justify-center">
-          <Card className="w-full">
-            <CardHeader>
-              <CardDescription>
-                รสชาติมากมายรอให้ค้นพบ
-              </CardDescription>
-            </CardHeader>
-            <CardContent>
-              <Table>
-                <TableHeader>
-                  <TableRow>
-                    <TableHead>Name</TableHead>
-                    <TableHead>หมายเหตุ</TableHead>
-                    <TableHead className="text-right">Actions</TableHead>
-                  </TableRow>
-                </TableHeader>
-                <TableBody>
-                  {taste.map((items : any  ) => (
-                    <TableRow key={items.id }>
-                      <TableCell className="font-medium">{items.level}</TableCell>
-                      <TableCell>{items.comment}</TableCell>
-                      <TableCell className="text-right">
-                        <DropdownMenu>
-                          <DropdownMenuTrigger asChild>
-                            <Button variant="ghost" className="h-8 w-8 p-0">
-                              <span className="sr-only">Open menu</span>
-                              <MoreHorizontal className="h-4 w-4" />
-                            </Button>
-                          </DropdownMenuTrigger>
-                          <DropdownMenuContent align="end">
-                            <DropdownMenuItem onClick={() => {edit(items)}}>Edit</DropdownMenuItem>
-                            <DropdownMenuItem onClick={() => remove(items)}>Delete</DropdownMenuItem>
-                          </DropdownMenuContent>
-                        </DropdownMenu>
-                      </TableCell>
-                    </TableRow>
-                  ))}
-                </TableBody>
-              </Table>
-            </CardContent>
-          </Card>
-        </div>
-      </div>
+  <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center space-y-4 sm:space-y-0">
+    <h1 className="text-2xl sm:text-3xl font-bold tracking-tight">Taste</h1>
+    <Button
+      onClick={() => {
+        setIsModalOpen(true);
+        clear();
+      }}
+      className="w-full sm:w-auto"
+    >
+      <PlusCircle className="mr-2 h-4 w-4" />
+      เพิ่มรสชาติ
+    </Button>
+  </div>
+  <div className="flex justify-center">
+    <Card className="w-full">
+      <CardHeader>
+        <CardDescription>รสชาติมากมายรอให้ค้นพบ</CardDescription>
+      </CardHeader>
+      <CardContent>
+        <Table className="w-full">
+          <TableHeader>
+            <TableRow>
+              <TableHead>Name</TableHead>
+              <TableHead>หมายเหตุ</TableHead>
+              <TableHead className="text-right">Actions</TableHead>
+            </TableRow>
+          </TableHeader>
+          <TableBody>
+            {taste.map((items: any) => (
+              <TableRow key={items.id}>
+                <TableCell className="font-medium">{items.level}</TableCell>
+                <TableCell>{items.comment}</TableCell>
+                <TableCell className="text-right">
+                  <DropdownMenu>
+                    <DropdownMenuTrigger asChild>
+                      <Button variant="ghost" className="h-8 w-8 p-0">
+                        <span className="sr-only">Open menu</span>
+                        <MoreHorizontal className="h-4 w-4" />
+                      </Button>
+                    </DropdownMenuTrigger>
+                    <DropdownMenuContent align="end">
+                      <DropdownMenuItem onClick={() => edit(items)}>
+                        Edit
+                      </DropdownMenuItem>
+                      <DropdownMenuItem onClick={() => remove(items)}>
+                        Delete
+                      </DropdownMenuItem>
+                    </DropdownMenuContent>
+                  </DropdownMenu>
+                </TableCell>
+              </TableRow>
+            ))}
+          </TableBody>
+        </Table>
+      </CardContent>
+    </Card>
+  </div>
+</div>
+
 
       <MyModal
         isOpen={isModalOpen}

@@ -893,6 +893,7 @@ export default function OrderPage() {
       <Tabs defaultValue="home" onValueChange={(value) => {
         setActiveTab(value);
         if (value === "coffee") {
+          handleClearAll();
           setShowWaterDialog(true);
         }
       }} className="bg-card border-t border-border mt-auto fixed bottom-0 w-full bg-white">

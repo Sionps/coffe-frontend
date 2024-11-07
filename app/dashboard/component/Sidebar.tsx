@@ -13,6 +13,7 @@ import {
   ChartColumnStacked 
 } from "lucide-react";
 import { Tooltip, TooltipContent, TooltipTrigger, TooltipProvider } from "@/components/ui/tooltip";
+import { ScrollArea } from "@/components/ui/scroll-area";
 import Link from "next/link";
 
 export default function Sidebar() {
@@ -57,7 +58,7 @@ export default function Sidebar() {
           />
           <span className="text-xl font-semibold">Admin System</span>
         </div>
-
+        <ScrollArea className="flex-grow w-full px-4">
         <nav className="flex flex-col items-start gap-4 w-full px-4">
           
           <Tooltip>
@@ -174,6 +175,7 @@ export default function Sidebar() {
             <TooltipContent side="right">Sum-per-month</TooltipContent>
           </Tooltip>
         </nav>
+        </ScrollArea>
 
         <button
           onClick={handleLogout}

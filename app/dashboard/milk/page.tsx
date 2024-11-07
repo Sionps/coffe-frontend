@@ -105,10 +105,14 @@ export default function Milk() {
   return (
     <>
       <div className="p-6 space-y-6 w-full max-w-[1400px] mx-auto">
-        <div className="flex justify-between items-center">
-          <h1 className="text-3xl font-bold tracking-tight">Milk Type</h1>
+        <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center space-y-4 sm:space-y-0">
+          <h1 className="text-2xl sm:text-3xl font-bold tracking-tight">Milk Type</h1>
           <Button
-            onClick={() => { setIsModalOpen(true); clear() }}
+            onClick={() => {
+              setIsModalOpen(true);
+              clear();
+            }}
+            className="w-full sm:w-auto"
           >
             <PlusCircle className="mr-2 h-4 w-4" />
             เพิ่มชนิดนม
@@ -117,12 +121,10 @@ export default function Milk() {
         <div className="flex justify-center">
           <Card className="w-full">
             <CardHeader>
-              <CardDescription>
-                รสชาติมากมายรอให้ค้นพบ
-              </CardDescription>
+              <CardDescription>รสชาติมากมายรอให้ค้นพบ</CardDescription>
             </CardHeader>
             <CardContent>
-              <Table>
+              <Table className="w-full">
                 <TableHeader>
                   <TableRow>
                     <TableHead>ชื่อ</TableHead>
@@ -146,8 +148,12 @@ export default function Milk() {
                             </Button>
                           </DropdownMenuTrigger>
                           <DropdownMenuContent align="end">
-                            <DropdownMenuItem onClick={() => update(item)}>Edit</DropdownMenuItem>
-                            <DropdownMenuItem onClick={() => remove(item)}>Delete</DropdownMenuItem>
+                            <DropdownMenuItem onClick={() => update(item)}>
+                              Edit
+                            </DropdownMenuItem>
+                            <DropdownMenuItem onClick={() => remove(item)}>
+                              Delete
+                            </DropdownMenuItem>
                           </DropdownMenuContent>
                         </DropdownMenu>
                       </TableCell>
@@ -159,6 +165,7 @@ export default function Milk() {
           </Card>
         </div>
       </div>
+
 
       <MyModal
         isOpen={isModalOpen}

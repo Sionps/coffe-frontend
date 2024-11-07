@@ -44,12 +44,12 @@ export default function TablePage() {
             });
             return;
         }
-    
+
         try {
             const payload = {
                 tableId: tableId,
             };
-    
+
             if (id === 0) {
                 await axios.post(config.apiServer + '/api/table/create', payload);
             }
@@ -63,7 +63,7 @@ export default function TablePage() {
             });
         }
     };
-    
+
 
     const remove = async (item: any) => {
         try {
@@ -94,10 +94,14 @@ export default function TablePage() {
     return (
         <>
             <div className="p-6 space-y-6 w-full max-w-[1400px] mx-auto">
-                <div className="flex justify-between items-center">
-                    <h1 className="text-3xl font-bold tracking-tight">Table Management</h1>
+                <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center space-y-4 sm:space-y-0">
+                    <h1 className="text-2xl sm:text-3xl font-bold tracking-tight">Table Management</h1>
                     <Button
-                        onClick={() => { setIsModalOpen(true); clear() }}
+                        onClick={() => {
+                            setIsModalOpen(true);
+                            clear();
+                        }}
+                        className="w-full sm:w-auto"
                     >
                         <PlusCircle className="mr-2 h-4 w-4" />
                         เพิ่มโต๊ะ
@@ -106,54 +110,52 @@ export default function TablePage() {
                 <div className="flex justify-center">
                     <Card className="w-full">
                         <CardHeader>
-                            <CardDescription>
-                                ตารางการจัดการโต๊ะ
-                            </CardDescription>
+                            <CardDescription>ตารางการจัดการโต๊ะ</CardDescription>
                         </CardHeader>
                         <CardContent>
-                                <Table>
-                                    <TableHeader>
-                                        <TableRow>
-                                            <TableHead>หมายเลขโต๊ะ</TableHead>
-                                            <TableHead className="hidden w-[100px] sm:table-cell">QR Code</TableHead>
-                                            <TableHead className="text-right">Actions</TableHead>
+                            <Table className="w-full">
+                                <TableHeader>
+                                    <TableRow>
+                                        <TableHead>หมายเลขโต๊ะ</TableHead>
+                                        <TableHead className="hidden w-[100px] sm:table-cell">QR Code</TableHead>
+                                        <TableHead className="text-right">Actions</TableHead>
+                                    </TableRow>
+                                </TableHeader>
+                                <TableBody>
+                                    {table.map((item: any) => (
+                                        <TableRow key={item.id}>
+                                            <TableCell className="font-medium">{item.tableId}</TableCell>
+                                            <TableCell className="hidden sm:table-cell">
+                                                <img
+                                                    alt={`QRCode for table ${item.tableId}`}
+                                                    className="aspect-square rounded-md object-cover w-[50px] h-[50px] sm:w-[100px] sm:h-[100px]"
+                                                    src={item.qrcode}
+                                                />
+                                            </TableCell>
+                                            <TableCell className="text-right">
+                                                <DropdownMenu>
+                                                    <DropdownMenuTrigger asChild>
+                                                        <Button variant="ghost" className="h-8 w-8 p-0">
+                                                            <span className="sr-only">Open menu</span>
+                                                            <MoreHorizontal className="h-4 w-4" />
+                                                        </Button>
+                                                    </DropdownMenuTrigger>
+                                                    <DropdownMenuContent align="end">
+                                                        <DropdownMenuItem onClick={() => remove(item)}>
+                                                            Delete
+                                                        </DropdownMenuItem>
+                                                    </DropdownMenuContent>
+                                                </DropdownMenu>
+                                            </TableCell>
                                         </TableRow>
-                                    </TableHeader>
-                                    <TableBody>
-                                        {table.map((item: any) => (
-                                            <TableRow key={item.id}> 
-                                                <TableCell className="font-medium">{item.tableId}</TableCell>
-                                                <TableCell className="hidden sm:table-cell">
-                                                    <img
-                                                        alt={`QRCode for table ${item.tableId}`}
-                                                        className="aspect-square rounded-md object-cover"
-                                                        height="100px"
-                                                        src={item.qrcode}
-                                                        width="100px"
-                                                    />
-                                                </TableCell>
-
-                                                <TableCell className="text-right">
-                                                    <DropdownMenu>
-                                                        <DropdownMenuTrigger asChild>
-                                                            <Button variant="ghost" className="h-8 w-8 p-0">
-                                                                <span className="sr-only">Open menu</span>
-                                                                <MoreHorizontal className="h-4 w-4" />
-                                                            </Button>
-                                                        </DropdownMenuTrigger>
-                                                        <DropdownMenuContent align="end">
-                                                            <DropdownMenuItem onClick={() => remove(item)}>Delete</DropdownMenuItem>
-                                                        </DropdownMenuContent>
-                                                    </DropdownMenu>
-                                                </TableCell>
-                                            </TableRow>
-                                        ))}
-                                    </TableBody>
-                                </Table>
+                                    ))}
+                                </TableBody>
+                            </Table>
                         </CardContent>
                     </Card>
                 </div>
             </div>
+
 
             <MyModal
                 isOpen={isModalOpen}
