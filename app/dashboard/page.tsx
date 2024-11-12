@@ -12,30 +12,44 @@ import config from '../config';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Swal from "sweetalert2";
-import Modal from '../dashboard/component/MyModal'; 
+import Modal from '../dashboard/component/MyModal';
+import io from 'socket.io-client';
+const socket = io(config.apiServer);
+
 
 export default function Dashboard() {
-  const [orders, setOrders] = useState([]);
+  const [orders, setOrders] = useState<any[]>([]);
   const [totalRevenue, setTotalRevenue] = useState(0);
   const [billUrl, setBillUrl] = useState("");
-  const [isModalOpen, setIsModalOpen] = useState(false); 
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const router = useRouter();
 
   useEffect(() => {
     const token = localStorage.getItem('token');
-
     if (!token) {
       router.push('/signup');
+    } else {
+      fetchData();
     }
-
-    fetchData();
   }, [router]);
+
+  useEffect(() => {
+    socket.on("new_order", (orderData) => {
+      console.log("Received new order data: ", orderData);
+      setOrders((prevOrders) => [...prevOrders, orderData]);
+      fetchData();
+    });
+
+    return () => {
+      socket.off("new_order");
+    };
+  }, []);
 
   const handleSubmit = async (orderId: number) => {
     try {
       const res = await axios.put(`${config.apiServer}/api/order/submit/${orderId}`);;
       setBillUrl(res.data.fileName);
-      setIsModalOpen(true); 
+      setIsModalOpen(true);
       toast.success("Update order success");
       fetchData();
     } catch (e: any) {
@@ -124,13 +138,13 @@ export default function Dashboard() {
                   </TableRow>
                 </TableHeader>
                 <TableBody>
-                  {orders.map((order: any) =>
-                    order.items.map((item: any, index: number) => (
+                  {orders && orders.map((order: any) =>
+                    order.items && order.items.map((item: any, index: number) => (
                       <TableRow key={`${order.id}-${index}`}>
                         {index === 0 && (
                           <>
                             <TableCell rowSpan={order.items.length}>{order.id}</TableCell>
-                            <TableCell rowSpan={order.items.length}>{order.table.tableId}</TableCell>
+                            <TableCell rowSpan={order.items.length}>{order.table?.tableId}</TableCell>
                           </>
                         )}
                         <TableCell>{item.name}</TableCell>
@@ -155,11 +169,10 @@ export default function Dashboard() {
                         {index === 0 && (
                           <TableCell rowSpan={order.items.length}>
                             <span
-                              className={`text-xs font-medium px-2.5 py-0.5 rounded ${
-                                order.status === "success"
+                              className={`text-xs font-medium px-2.5 py-0.5 rounded ${order.status === "success"
                                   ? "bg-green-100 text-green-800"
                                   : "bg-yellow-100 text-yellow-800"
-                              }`}
+                                }`}
                             >
                               {order.status}
                             </span>
@@ -203,7 +216,7 @@ export default function Dashboard() {
         </Card>
 
         <Modal isOpen={isModalOpen} setIsOpen={setIsModalOpen} title="พิมพ์เอกสาร">
-        {billUrl && <embed
+          {billUrl && <embed
             src={config.apiServer + '/' + billUrl}
             type="application/pdf"
             width="100%"

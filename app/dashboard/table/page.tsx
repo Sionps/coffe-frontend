@@ -17,6 +17,8 @@ export default function TablePage() {
     const [tableId, setTableId] = useState(0);
     const [id, setId] = useState(0);
     const [table, setTable] = useState([]);
+    const [billUrl, setBillUrl] = useState("")
+    const [isPrintModalOpen, setIsPrintModalOpen] = useState(false)
 
     useEffect(() => {
         fetchData();
@@ -90,6 +92,22 @@ export default function TablePage() {
         setId(0);
         setTableId(0);
     };
+    const print = async (item: any) => {
+        console.log("Item:", item);
+        try {
+            const res = await axios.post(config.apiServer + `/api/table/print`, {
+                tableId: item.tableId
+            });
+            setBillUrl(res.data.fileName);
+            setIsPrintModalOpen(true);
+        } catch (e: any) {
+            Swal.fire({
+                title: "Error",
+                text: e.message,
+                icon: "error",
+            });
+        }
+    }
 
     return (
         <>
@@ -144,6 +162,9 @@ export default function TablePage() {
                                                         <DropdownMenuItem onClick={() => remove(item)}>
                                                             Delete
                                                         </DropdownMenuItem>
+                                                        <DropdownMenuItem onClick={() => print(item)}>
+                                                            Print
+                                                        </DropdownMenuItem>
                                                     </DropdownMenuContent>
                                                 </DropdownMenu>
                                             </TableCell>
@@ -177,6 +198,22 @@ export default function TablePage() {
                     </div>
                 </div>
                 <Button type="submit" onClick={create}>บันทึก</Button>
+            </MyModal>
+
+            <MyModal
+                isOpen={isPrintModalOpen}
+                setIsOpen={setIsPrintModalOpen}
+                title="พิมพ์เอกสาร"
+            >
+                {billUrl && (
+                    <embed
+                        src={`${config.apiServer}/${billUrl}`}
+                        width="100%"
+                        height="600px"
+                        style={{ border: "none" }}
+                        title="PDF Preview"
+                    />
+                )}
             </MyModal>
         </>
     );

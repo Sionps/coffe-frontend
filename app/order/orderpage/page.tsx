@@ -1,4 +1,5 @@
 'use client';
+import { io } from "socket.io-client"; 
 import axios from "axios";
 import { useEffect, useState } from "react";
 import Swal from "sweetalert2";
@@ -19,6 +20,7 @@ import { Textarea } from "@/components/ui/textarea"
 import WelcomeDialog from "../component/welcomenote";
 import WaterNote from "../component/waternote";
 import { Suspense } from "react";
+const socket = io(config.apiServer);
 
 export default function OrderPage() {
   return (
@@ -149,9 +151,9 @@ export default function OrderPage() {
         tableId: tableId,
         totalPrice: total
       }
-
       await axios.post(config.apiServer + '/api/order/create', payload);
       toast.success("Place order success");
+      socket.emit("new_order", { tableId: tableId, totalPrice: total });
       fetchData();
     } catch (e: any) {
       Swal.fire({
@@ -178,8 +180,6 @@ export default function OrderPage() {
 
       const resTemperature = await axios.get(config.apiServer + '/api/temperature/list');
       setTemperatures(resTemperature.data.results);
-      console.log(resTemperature.data.results);
-
     } catch (error: any) {
       Swal.fire({
         title: "Error",
@@ -895,6 +895,8 @@ export default function OrderPage() {
         if (value === "coffee") {
           handleClearAll();
           setShowWaterDialog(true);
+        } else if (value === "cart") {
+          fetchData()
         }
       }} className="bg-card border-t border-border mt-auto fixed bottom-0 w-full bg-white">
         <TabsList className="flex justify-around py-2 w-full">

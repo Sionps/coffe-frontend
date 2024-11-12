@@ -71,7 +71,6 @@ export default function Sidebar() {
                 <span className="ml-4">Dashboard</span>
               </Link>
             </TooltipTrigger>
-            <TooltipContent side="right">Dashboard</TooltipContent>
           </Tooltip>
 
           <Tooltip>
@@ -84,7 +83,6 @@ export default function Sidebar() {
                 <span className="ml-4">Revenue</span>
               </Link>
             </TooltipTrigger>
-            <TooltipContent side="right">Revenue</TooltipContent>
           </Tooltip>
 
           <Tooltip>
@@ -97,7 +95,6 @@ export default function Sidebar() {
                 <span className="ml-4">Menu</span>
               </Link>
             </TooltipTrigger>
-            <TooltipContent side="right">Menu</TooltipContent>
           </Tooltip>
 
           <Tooltip>
@@ -110,7 +107,6 @@ export default function Sidebar() {
                 <span className="ml-4">Size</span>
               </Link>
             </TooltipTrigger>
-            <TooltipContent side="right">Size</TooltipContent>
           </Tooltip>
 
           <Tooltip>
@@ -123,7 +119,6 @@ export default function Sidebar() {
                 <span className="ml-4">Milk Type</span>
               </Link>
             </TooltipTrigger>
-            <TooltipContent side="right">Milk Type</TooltipContent>
           </Tooltip>
 
           <Tooltip>
@@ -136,7 +131,6 @@ export default function Sidebar() {
                 <span className="ml-4">Taste</span>
               </Link>
             </TooltipTrigger>
-            <TooltipContent side="right">Taste</TooltipContent>
           </Tooltip>
           <Tooltip>
             <TooltipTrigger asChild>
@@ -148,7 +142,6 @@ export default function Sidebar() {
                 <span className="ml-4">Table</span>
               </Link>
             </TooltipTrigger>
-            <TooltipContent side="right">Table</TooltipContent>
           </Tooltip>
           <Tooltip>
             <TooltipTrigger asChild>
@@ -160,7 +153,6 @@ export default function Sidebar() {
                 <span className="ml-4">Sum-per-day</span>
               </Link>
             </TooltipTrigger>
-            <TooltipContent side="right">Sum-per-day</TooltipContent>
           </Tooltip>
           <Tooltip>
             <TooltipTrigger asChild>
@@ -172,7 +164,6 @@ export default function Sidebar() {
                 <span className="ml-4">Sum-per-month</span>
               </Link>
             </TooltipTrigger>
-            <TooltipContent side="right">Sum-per-month</TooltipContent>
           </Tooltip>
         </nav>
         </ScrollArea>
