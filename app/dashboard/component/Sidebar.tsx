@@ -12,7 +12,7 @@ import {
   CalendarDays,
   ChartColumnStacked 
 } from "lucide-react";
-import { Tooltip, TooltipContent, TooltipTrigger, TooltipProvider } from "@/components/ui/tooltip";
+import { Tooltip,  TooltipTrigger, TooltipProvider } from "@/components/ui/tooltip";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import Link from "next/link";
 
