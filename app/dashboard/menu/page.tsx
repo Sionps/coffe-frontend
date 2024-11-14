@@ -212,7 +212,7 @@ export default function SizeComponent() {
 
     return (
         <>
-            <div className="p-6 space-y-6 w-full max-w-[1400px] mx-auto">
+            <div className="p-6 space-y-6 w-full max-w-[1400px] mx-auto ml-auto mr-auto md:ml-72">
                 <div className="flex justify-between items-center">
                     <h1 className="text-3xl font-bold tracking-tight">Menu</h1>
                     <Button

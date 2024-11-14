@@ -104,7 +104,7 @@ export default function Milk() {
 
   return (
     <>
-      <div className="p-6 space-y-6 w-full max-w-[1400px] mx-auto">
+      <div className="p-6 space-y-6 w-full max-w-[1400px] mx-auto ml-auto mr-auto md:ml-72">
         <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center space-y-4 sm:space-y-0">
           <h1 className="text-2xl sm:text-3xl font-bold tracking-tight">Milk Type</h1>
           <Button
@@ -135,7 +135,7 @@ export default function Milk() {
                 </TableHeader>
                 <TableBody>
                   {milk.map((item: any, index) => (
-                    <TableRow key={item.id || index}> {/* ใช้ item.id เป็น key ถ้ามี หรือใช้ index เป็นสำรอง */}
+                    <TableRow key={item.id || index}>
                       <TableCell className="font-medium">{item.name}</TableCell>
                       <TableCell>{item.comment}</TableCell>
                       <TableCell>{item.price}</TableCell>
@@ -165,6 +165,7 @@ export default function Milk() {
           </Card>
         </div>
       </div>
+
 
 
       <MyModal
