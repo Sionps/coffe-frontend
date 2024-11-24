@@ -45,7 +45,7 @@ export default function Dashboard() {
     };
   }, []);
 
-  const handleSubmit = async (orderId: number , userId : String) => {
+  const handleSubmit = async (orderId: number , userId : string) => {
     try {
       const res = await axios.put(
         `${config.apiServer}/api/order/submit/${orderId}`,

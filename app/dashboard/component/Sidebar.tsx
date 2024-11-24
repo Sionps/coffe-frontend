@@ -8,7 +8,6 @@ import {
   CakeSlice,
   CupSoda,
   Coffee,
-  RockingChair,
   CalendarDays,
   ChartColumnStacked 
 } from "lucide-react";
