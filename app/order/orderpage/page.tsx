@@ -1,7 +1,7 @@
 'use client';
 import { io } from "socket.io-client"; 
 import axios from "axios";
-import { useEffect, useState } from "react";
+import { useEffect, useState , useRef } from "react";
 import Swal from "sweetalert2";
 import { useSearchParams, useRouter } from 'next/navigation';
 import config from "../../config";
@@ -20,6 +20,7 @@ import { Textarea } from "@/components/ui/textarea"
 import WelcomeDialog from "../component/welcomenote";
 import WaterNote from "../component/waternote";
 import { Suspense } from "react";
+import liff from '@line/liff';
 const socket = io(config.apiServer);
 
 export default function OrderPage() {
@@ -33,9 +34,8 @@ export default function OrderPage() {
 }
  function OrderPageContent() {
   const searchParams = useSearchParams();
-  const router = useRouter();
+  const name  = searchParams.get('name');
   const tableId = searchParams.get('tableId');
-  const token = searchParams.get('token');
   const [isValid, setIsValid] = useState(false);
   const [menu, setMenu] = useState([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -60,11 +60,50 @@ export default function OrderPage() {
   const [temperatures, setTemperatures] = useState([])
   const [showWelcomeDialog, setShowWelcomeDialog] = useState(true);
   const [showWaterDialog, setShowWaterDialog] = useState(false);
+  const isLIFFInitialized = useRef(false); 
+
+
+  const initializeLIFF = async () => {
+    try {
+      if (isLIFFInitialized.current) return; 
+
+
+      await liff.init({ liffId: "2006600373-7KkOEez9" });
+
+      if (!liff.isLoggedIn()) {
+        liff.login(); 
+      } else {
+
+        const profile = await liff.getProfile();
+        const name = profile.displayName;
+        const userId = profile.userId;
+
+        console.log("Name:", name);
+        console.log("User ID:", userId);
+
+        const urlParams = new URLSearchParams(window.location.search);
+        if (!urlParams.has("name") || !urlParams.has("userId")) {
+          const newUrl = `/order/orderpage?name=${encodeURIComponent(name)}&userId=${userId}`;
+          window.location.replace(newUrl);
+        }
+      }
+
+      isLIFFInitialized.current = true;
+      setIsValid(true);
+    } catch (error : any) {
+      console.error("Error initializing LIFF:", error.message);
+    }
+  };
+
+  useEffect(() => {
+    initializeLIFF();
+    fetchData();
+  }, []);
 
   const createMysteryItem = async () => {
     try {
       const payload = {
-        tableId: tableId,
+        customerName: name,
         sizeId: selectedOptions.size || null,
         milkId: selectedOptions.milkType || null,
         tasteId: selectedOptions.sugar || null,
@@ -120,7 +159,7 @@ export default function OrderPage() {
         beanType: selectedOptions.beanType || null,
         roastMethod: selectedOptions.roastMethod || null,
         quantity: quantity,
-        tableId: tableId,
+        customerName: name,
         orderId: null,
         comment: additionalNotes
       };
@@ -148,7 +187,7 @@ export default function OrderPage() {
   const createOrder = async () => {
     try {
       const payload = {
-        tableId: tableId,
+        customerName: name,
         totalPrice: total
       }
       await axios.post(config.apiServer + '/api/order/create', payload);
@@ -169,7 +208,7 @@ export default function OrderPage() {
       const res = await axios.get(config.apiServer + `/api/menu/list`);
       setMenu(res.data.results);
 
-      const resOrderItem = await axios.get(config.apiServer + `/api/orderitem/list`, { params: { tableId, } });
+      const resOrderItem = await axios.get(config.apiServer + `/api/orderitem/list`, { params: { name, } });
       setCartItems(resOrderItem.data.results);
 
       const resTaste = await axios.get(config.apiServer + '/api/taste/list');
@@ -189,35 +228,6 @@ export default function OrderPage() {
     }
   };
 
-  useEffect(() => {
-    if (tableId && token) {
-      verifyToken();
-    }
-    fetchData();
-  }, [tableId, token]);
-
-  const verifyToken = async () => {
-    try {
-      const res = await axios.get(config.apiServer + `/api/table/verify`, { params: { tableId, token } });
-      if (res.data.valid) {
-        setIsValid(true);
-      } else {
-        Swal.fire({
-          title: "Access Denied",
-          text: "Token is invalid or expired",
-          icon: "error",
-        }).then(() => {
-          router.push("/");
-        });
-      }
-    } catch (error: any) {
-      Swal.fire({
-        title: "Error",
-        text: error.message,
-        icon: "error",
-      });
-    }
-  };
 
   const handleOptionChange = (optionType: string, value: string) => {
     setSelectedOptions(prev => ({ ...prev, [optionType]: value }));
@@ -289,7 +299,7 @@ export default function OrderPage() {
             <div className="flex items-center justify-center gap-4">
               <div className="w-16 h-px bg-gray-400/60" />
               <h1 className="text-2xl font-bold text-black font-['Charm']">
-                สั่งกาแฟสำหรับโต๊ะ {tableId}
+                ยินดีต้อนรับคุณ {name}
               </h1>
               <div className="w-16 h-px bg-gray-400/60" />
             </div>

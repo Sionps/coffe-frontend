@@ -2,14 +2,14 @@
 import { useEffect, useState } from "react";
 import { PlusCircle, MoreHorizontal } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardDescription, CardHeader} from "@/components/ui/card";
+import { Card, CardContent, CardDescription, CardHeader } from "@/components/ui/card";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import MyModal from "../component/MyModal"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import Swal from "sweetalert2";
-import  config  from "@/app/config";
+import config from "@/app/config";
 import axios from "axios";
 
 
@@ -17,8 +17,8 @@ export default function Taste() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [level, setLevel] = useState("");
   const [comment, setComment] = useState("");
-  const [taste , setTaste] = useState([])
-  const [id , setId] = useState(0)  
+  const [taste, setTaste] = useState([])
+  const [id, setId] = useState(0)
 
   useEffect(() => {
     fetchData()
@@ -44,15 +44,15 @@ export default function Taste() {
         id: id
       }
 
-      if (id === 0 ){
+      if (id === 0) {
         await axios.post(config.apiServer + '/api/taste/create', payload)
-      }else {
+      } else {
         await axios.put(config.apiServer + '/api/taste/update', payload)
         setId(0)
       }
       fetchData()
       setIsModalOpen(false)
-    } catch (e : any) {
+    } catch (e: any) {
       Swal.fire({
         title: "Error",
         text: e.message,
@@ -61,21 +61,21 @@ export default function Taste() {
     }
   }
 
-  const remove = async (item : any) => {
+  const remove = async (item: any) => {
     try {
       const button = await Swal.fire({
         title: "ต้องการลบข้อมูลใช่หรือไม่",
         text: "คุณต้องการลบข้อมูลใช่หรือไม่",
-        icon : "question",
-        showCancelButton : true,
-        showConfirmButton : true
+        icon: "question",
+        showCancelButton: true,
+        showConfirmButton: true
       })
 
-      if(button.isConfirmed){
+      if (button.isConfirmed) {
         await axios.delete(config.apiServer + '/api/taste/remove/' + item.id)
       }
       fetchData()
-    } catch (e : any) {
+    } catch (e: any) {
       Swal.fire({
         title: "Error",
         text: e.message,
@@ -84,7 +84,7 @@ export default function Taste() {
     }
   }
 
-  const edit = async (item : any) => {
+  const edit = async (item: any) => {
     setId(item.id)
     setLevel(item.level)
     setComment(item.comment)
@@ -100,65 +100,65 @@ export default function Taste() {
 
   return (
     <>
-<div className="p-6 space-y-6 w-full max-w-[1400px] mx-auto md:ml-72">
-  <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center space-y-4 sm:space-y-0">
-    <h1 className="text-2xl sm:text-3xl font-bold tracking-tight">Taste</h1>
-    <Button
-      onClick={() => {
-        setIsModalOpen(true);
-        clear();
-      }}
-      className="w-full sm:w-auto"
-    >
-      <PlusCircle className="mr-2 h-4 w-4" />
-      เพิ่มรสชาติ
-    </Button>
-  </div>
-  <div className="flex justify-center">
-    <Card className="w-full">
-      <CardHeader>
-        <CardDescription>รสชาติมากมายรอให้ค้นพบ</CardDescription>
-      </CardHeader>
-      <CardContent>
-        <Table className="w-full">
-          <TableHeader>
-            <TableRow>
-              <TableHead>Name</TableHead>
-              <TableHead>หมายเหตุ</TableHead>
-              <TableHead className="text-right">Actions</TableHead>
-            </TableRow>
-          </TableHeader>
-          <TableBody>
-            {taste.map((items: any) => (
-              <TableRow key={items.id}>
-                <TableCell className="font-medium">{items.level}</TableCell>
-                <TableCell>{items.comment}</TableCell>
-                <TableCell className="text-right">
-                  <DropdownMenu>
-                    <DropdownMenuTrigger asChild>
-                      <Button variant="ghost" className="h-8 w-8 p-0">
-                        <span className="sr-only">Open menu</span>
-                        <MoreHorizontal className="h-4 w-4" />
-                      </Button>
-                    </DropdownMenuTrigger>
-                    <DropdownMenuContent align="end">
-                      <DropdownMenuItem onClick={() => edit(items)}>
-                        Edit
-                      </DropdownMenuItem>
-                      <DropdownMenuItem onClick={() => remove(items)}>
-                        Delete
-                      </DropdownMenuItem>
-                    </DropdownMenuContent>
-                  </DropdownMenu>
-                </TableCell>
-              </TableRow>
-            ))}
-          </TableBody>
-        </Table>
-      </CardContent>
-    </Card>
-  </div>
-</div>
+      <div className="p-6 space-y-6 w-full max-w-[1400px] mx-auto md:ml-72">
+        <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center space-y-4 sm:space-y-0">
+          <h1 className="text-2xl sm:text-3xl font-bold tracking-tight">Taste</h1>
+          <Button
+            onClick={() => {
+              setIsModalOpen(true);
+              clear();
+            }}
+            className="w-full sm:w-auto"
+          >
+            <PlusCircle className="mr-2 h-4 w-4" />
+            เพิ่มรสชาติ
+          </Button>
+        </div>
+        <div className="flex justify-center">
+          <Card className="w-full">
+            <CardHeader>
+              <CardDescription>รสชาติมากมายรอให้ค้นพบ</CardDescription>
+            </CardHeader>
+            <CardContent>
+              <Table className="w-full">
+                <TableHeader>
+                  <TableRow>
+                    <TableHead>Name</TableHead>
+                    <TableHead>หมายเหตุ</TableHead>
+                    <TableHead className="text-right">Actions</TableHead>
+                  </TableRow>
+                </TableHeader>
+                <TableBody>
+                  {taste.map((items: any) => (
+                    <TableRow key={items.id}>
+                      <TableCell className="font-medium">{items.level}</TableCell>
+                      <TableCell>{items.comment}</TableCell>
+                      <TableCell className="text-right">
+                        <DropdownMenu>
+                          <DropdownMenuTrigger asChild>
+                            <Button variant="ghost" className="h-8 w-8 p-0">
+                              <span className="sr-only">Open menu</span>
+                              <MoreHorizontal className="h-4 w-4" />
+                            </Button>
+                          </DropdownMenuTrigger>
+                          <DropdownMenuContent align="end">
+                            <DropdownMenuItem onClick={() => edit(items)}>
+                              Edit
+                            </DropdownMenuItem>
+                            <DropdownMenuItem onClick={() => remove(items)}>
+                              Delete
+                            </DropdownMenuItem>
+                          </DropdownMenuContent>
+                        </DropdownMenu>
+                      </TableCell>
+                    </TableRow>
+                  ))}
+                </TableBody>
+              </Table>
+            </CardContent>
+          </Card>
+        </div>
+      </div>
       <MyModal
         isOpen={isModalOpen}
         setIsOpen={setIsModalOpen}
@@ -177,7 +177,7 @@ export default function Taste() {
             />
           </div>
           <div className="grid gap-2">
-            <Label  className="text-left">
+            <Label className="text-left">
               หมายเหตุ
             </Label>
             <Input
