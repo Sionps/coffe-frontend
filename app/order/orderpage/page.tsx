@@ -3,7 +3,7 @@ import { io } from "socket.io-client";
 import axios from "axios";
 import { useEffect, useState , useRef } from "react";
 import Swal from "sweetalert2";
-import { useSearchParams, useRouter } from 'next/navigation';
+import { useSearchParams } from 'next/navigation';
 import config from "../../config";
 import MyModal from "../component/MyModal";
 import { Card, CardContent, CardHeader, CardTitle, CardFooter } from "@/components/ui/card";

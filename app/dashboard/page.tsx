@@ -144,7 +144,7 @@ export default function Dashboard() {
                         {index === 0 && (
                           <>
                             <TableCell rowSpan={order.items.length}>{order.id}</TableCell>
-                            <TableCell rowSpan={order.items.length}>{order.table?.tableId}</TableCell>
+                            <TableCell rowSpan={order.items.length}>{order.customerName}</TableCell>
                           </>
                         )}
                         <TableCell>{item.name}</TableCell>
