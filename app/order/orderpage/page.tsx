@@ -35,7 +35,7 @@ export default function OrderPage() {
  function OrderPageContent() {
   const searchParams = useSearchParams();
   const name  = searchParams.get('name');
-  const tableId = searchParams.get('tableId');
+  const userId = searchParams.get('userId');
   const [isValid, setIsValid] = useState(false);
   const [menu, setMenu] = useState([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -188,11 +188,12 @@ export default function OrderPage() {
     try {
       const payload = {
         customerName: name,
-        totalPrice: total
+        totalPrice: total,
+        userId: userId
       }
       await axios.post(config.apiServer + '/api/order/create', payload);
       toast.success("Place order success");
-      socket.emit("new_order", { tableId: tableId, totalPrice: total });
+      socket.emit("new_order", { customerName: name, totalPrice: total });
       fetchData();
     } catch (e: any) {
       Swal.fire({

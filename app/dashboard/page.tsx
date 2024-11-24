@@ -45,9 +45,13 @@ export default function Dashboard() {
     };
   }, []);
 
-  const handleSubmit = async (orderId: number) => {
+  const handleSubmit = async (orderId: number , userId : String) => {
     try {
-      const res = await axios.put(`${config.apiServer}/api/order/submit/${orderId}`);;
+      const res = await axios.put(
+        `${config.apiServer}/api/order/submit/${orderId}`,
+        { userId } 
+      );
+      
       setBillUrl(res.data.fileName);
       setIsModalOpen(true);
       toast.success("Update order success");
@@ -126,7 +130,7 @@ export default function Dashboard() {
                 <TableHeader>
                   <TableRow>
                     <TableHead className="w-[80px]">Order ID</TableHead>
-                    <TableHead className="w-[80px]">Table ID</TableHead>
+                    <TableHead className="w-[80px]">Custommer Name</TableHead>
                     <TableHead className="w-[150px]">Menu Name</TableHead>
                     <TableHead className="w-[120px]">Date</TableHead>
                     <TableHead className="w-[300px]">Options</TableHead>
@@ -188,7 +192,7 @@ export default function Dashboard() {
                               <Button
                                 variant="ghost"
                                 size="icon"
-                                onClick={() => handleSubmit(order.id)}
+                                onClick={() => handleSubmit(order.id , order.userId)}
                                 className="h-8 w-8 p-0 text-blue-600 hover:text-blue-800 hover:bg-blue-100"
                               >
                                 <ArrowUpCircle className="h-5 w-5" />

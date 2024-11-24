@@ -135,17 +135,6 @@ export default function Sidebar() {
           <Tooltip>
             <TooltipTrigger asChild>
               <Link
-                href="/dashboard/table"
-                className="flex h-12 w-full items-center justify-start rounded-lg text-gray-400 transition-colors hover:text-white hover:bg-gray-700"
-              >
-                <RockingChair className="h-6 w-6 ml-2" />
-                <span className="ml-4">Table</span>
-              </Link>
-            </TooltipTrigger>
-          </Tooltip>
-          <Tooltip>
-            <TooltipTrigger asChild>
-              <Link
                 href="/dashboard/Sum-per-day"
                 className="flex h-12 w-full items-center justify-start rounded-lg text-gray-400 transition-colors hover:text-white hover:bg-gray-700"
               >
