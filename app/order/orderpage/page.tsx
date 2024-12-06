@@ -331,7 +331,7 @@ export default function OrderPage() {
       )}
 
       {activeTab === "coffee" && (
-        <div className="w-full min-h-screen pb-16 flex flex-col font-['Poppins',sans-serif] bg-[url('/bgpaper.jpg')] bg-center bg-cover">
+        <div className="min-h-screen bg-[url('/bgpaper.jpg')] bg-cover bg-center p-6 font-[Charm] text-gray-800">
           <style jsx global>{`
       @import url('https://fonts.googleapis.com/css2?family=Charm:wght@400;700&display=swap');
     `}</style>
